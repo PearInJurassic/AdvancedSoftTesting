@@ -24,8 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:queryHint="text here"
-            android:visibility="visible">
-        </SearchView>
+            android:visibility="visible"/>
 
         <ListView
             android:id="@+id/searchListView"
