@@ -6,6 +6,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -17,11 +19,17 @@ import com.example.myapplication.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SearchView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    String [] searchItems;
+    ArrayAdapter<String> stringArrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +41,36 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(binding.toolbar);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
+        // SearchView
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (!TextUtils.isEmpty(newText)) {
+                    binding.searchListView.setFilterText(newText);
+                } else {
+                    binding.searchListView.clearTextFilter();
+                }
+                return false;
+            }
+        });
+        // ListView
+        searchItems = getResources().getStringArray(R.array.testValues);
+        stringArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, searchItems);
+        binding.searchListView.setAdapter(stringArrayAdapter);
+        binding.searchListView.setTextFilterEnabled(true);
+        // Bar
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Replace with action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
