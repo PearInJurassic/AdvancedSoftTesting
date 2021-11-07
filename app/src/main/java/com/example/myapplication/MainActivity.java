@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.example.myapplication.util.DBHelper;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -29,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // database
+        DBHelper dbHelper = new DBHelper(MainActivity.this, "todo.db",null,1);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        // TODO
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

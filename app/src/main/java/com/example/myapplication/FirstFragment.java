@@ -52,6 +52,7 @@ public class FirstFragment extends Fragment {
                 return false;
             }
         });
+
         // ListView
         searchItems = getResources().getStringArray(R.array.testValues);
         stringArrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, searchItems);
