@@ -4,5 +4,8 @@
         <item>test1</item>
         <item>test2</item>
         <item>test3</item>
+        <item>red</item>
+        <item>green</item>
+        <item>blue</item>
     </string-array>
 </resources>
